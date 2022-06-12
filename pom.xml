@@ -33,7 +33,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>org.example.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -45,7 +45,7 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <phase>install</phase> <!-- bind to the packaging phase -->
+                        <phase>install</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
