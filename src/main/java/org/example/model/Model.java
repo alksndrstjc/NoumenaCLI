@@ -1,12 +1,26 @@
 package org.example.model;
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvCustomBindByName;
+import org.example.service.reader.CsvCreditLimitConverter;
+import org.example.service.reader.CsvDateConverter;
+
 public class Model {
+    @CsvBindByName(column = "Name")
     private String name;
+    @CsvBindByName(column = "Address")
     private String address;
+    @CsvBindByName(column = "Postcode")
     private String postcode;
+    @CsvBindByName(column = "Phone")
     private String phone;
+    @CsvCustomBindByName(column = "Credit Limit", converter = CsvCreditLimitConverter.class)
     private String creditLimit;
+    @CsvCustomBindByName(column = "Birthday", converter = CsvDateConverter.class)
     private String birthday;
+
+    public Model() {
+    }
 
     public String getName() {
         return name;
