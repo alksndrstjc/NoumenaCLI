@@ -17,7 +17,7 @@ public class JsonWriter implements Writer {
         try {
             mapper.writer().writeValue(System.out, models);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 }

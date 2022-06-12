@@ -15,31 +15,30 @@ import java.util.List;
 public class PnrReader implements Reader {
     @Override
     public List<Model> read(InputStream inputStream) {
-        //new InputStreamReader(Files.newInputStream(Paths.get("src/main/resources/Workbook2.prn"))));
-        //InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         List<Model> models = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.ISO_8859_1))) {
-            String line;
-            boolean firstLine = true;
-            while ((line = br.readLine()) != null) {
-                if (firstLine || line.trim().equals("")) {
-                    firstLine = false;
-                    continue;
+            if (br.ready()) {
+                String line;
+                boolean firstLine = true;
+                while ((line = br.readLine()) != null) {
+                    if (firstLine || line.trim().equals("")) {
+                        firstLine = false;
+                        continue;
+                    }
+                    String[] parts = splitStringToChunks(line, 16, 22, 9, 14, 13, 8);
+                    Model model = new Model();
+                    model.setName(parts[0]);
+                    model.setAddress(parts[1]);
+                    model.setPostcode(parts[2]);
+                    model.setPhone(parts[3]);
+                    model.setCreditLimit(parts[4]);
+                    model.setBirthday(LocalDate.parse(parts[5], DateTimeFormatter.BASIC_ISO_DATE).toString());
+                    models.add(model);
                 }
-                String[] parts = splitStringToChunks(line, 16, 22, 9, 14, 13, 8);
-                Model model = new Model();
-                model.setName(parts[0]);
-                model.setAddress(parts[1]);
-                model.setPostcode(parts[2]);
-                model.setPhone(parts[3]);
-                model.setCreditLimit(parts[4]);
-                model.setBirthday(LocalDate.parse(parts[5], DateTimeFormatter.BASIC_ISO_DATE).toString());
-                models.add(model);
             }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-
         return models;
     }
 
