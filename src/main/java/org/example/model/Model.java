@@ -69,4 +69,19 @@ public class Model {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    public enum Field {
+        NAME("Name"),
+        ADDRESS("Address"),
+        POSTCODE("Postcode"),
+        PHONE("Phone"),
+        CREDIT_LIMIT("Credit Limit"),
+        BIRTHDAY("Birthday");
+
+        public final String value;
+
+        Field(String value) {
+            this.value = value;
+        }
+    }
 }
